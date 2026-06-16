@@ -1,3 +1,3 @@
 package com.bai.bookkeeping.data.local.entity
 
-data class ChatEntity()
+data class ChatEntity(val itmes : String = "")
