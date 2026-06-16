@@ -1,4 +1,4 @@
-package com.bai.bookkeeping.presentation.navigation
+package com.bai.bookkeeping.navigation
 
 import androidx.compose.runtime.Composable
 
