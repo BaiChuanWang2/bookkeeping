@@ -16,7 +16,10 @@ fun ChatRoute(
         uiState = uiState,
         onAction = { action ->
             when (action) {
+
                 ChatAction.Back -> onBack()
+
+                else -> viewModel.onAction(action)
             }
         }
     )

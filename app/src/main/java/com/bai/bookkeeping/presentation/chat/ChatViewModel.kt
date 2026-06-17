@@ -13,4 +13,34 @@ class ChatViewModel @Inject constructor() : ViewModel() {
     )
 
     val uiState: StateFlow<ChatUiState> = _uiState
+
+    init {
+        _uiState.value = ChatUiState.Content()
+    }
+
+    fun onAction(action: ChatAction) {
+        when (action) {
+
+            is ChatAction.InputChanged -> {
+                val state = _uiState.value
+                if (state is ChatUiState.Content) {
+                    _uiState.value = state.copy(
+                        input = action.value
+                    )
+                }
+            }
+
+            ChatAction.Send -> {
+                val state = _uiState.value
+                if (state is ChatUiState.Content) {
+                    _uiState.value = state.copy(
+                        messages = state.messages + state.input,
+                        input = ""
+                    )
+                }
+            }
+
+            ChatAction.Back -> Unit
+        }
+    }
 }
