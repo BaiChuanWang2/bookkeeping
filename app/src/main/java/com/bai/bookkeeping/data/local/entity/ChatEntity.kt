@@ -1,3 +1,11 @@
 package com.bai.bookkeeping.data.local.entity
 
-data class ChatEntity(val itmes : String = "")
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity(tableName = "chat")
+data class ChatEntity(
+    @PrimaryKey val id: String,
+    val message: String,
+    val time: Long
+)

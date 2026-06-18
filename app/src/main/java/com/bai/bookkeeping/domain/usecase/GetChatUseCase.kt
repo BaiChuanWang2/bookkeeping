@@ -1,12 +1,15 @@
 package com.bai.bookkeeping.domain.usecase
 
+import com.bai.bookkeeping.domain.model.Chat
 import com.bai.bookkeeping.domain.repository.ChatRepository
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class GetChatUseCase @Inject constructor(
     private val repository: ChatRepository
 ) {
-    suspend operator fun invoke() {
-
+    operator fun invoke(): Flow<List<Chat>> {
+        // 業務邏輯
+        return repository.getChat()
     }
 }
