@@ -8,7 +8,7 @@ class SaveChatUseCase @Inject constructor(
     private val repository: ChatRepository
 ) {
     suspend operator fun invoke(chat: Chat) {
-        // 業務邏輯
+
         if (chat.message.isNotBlank()) {
             repository.saveChat(chat)
         }

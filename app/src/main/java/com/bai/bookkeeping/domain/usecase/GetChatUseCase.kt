@@ -9,7 +9,7 @@ class GetChatUseCase @Inject constructor(
     private val repository: ChatRepository
 ) {
     operator fun invoke(): Flow<List<Chat>> {
-        // 業務邏輯
+
         return repository.getChat()
     }
 }

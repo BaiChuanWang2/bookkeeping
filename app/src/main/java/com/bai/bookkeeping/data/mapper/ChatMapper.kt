@@ -3,7 +3,7 @@ package com.bai.bookkeeping.data.mapper
 import com.bai.bookkeeping.data.local.entity.ChatEntity
 import com.bai.bookkeeping.domain.model.Chat
 
-// 將 DB Entity 轉為 Domain Model
+// DB Entity → Domain Model
 fun ChatEntity.toDomain(): Chat {
     return Chat(
         id = this.id,
@@ -12,7 +12,7 @@ fun ChatEntity.toDomain(): Chat {
     )
 }
 
-// 將 Domain Model 轉為 DB Entity
+// Domain Model → DB Entity
 fun Chat.toEntity(): ChatEntity {
     return ChatEntity(
         id = this.id,
