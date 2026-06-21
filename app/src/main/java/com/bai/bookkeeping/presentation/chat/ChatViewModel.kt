@@ -21,18 +21,20 @@ class ChatViewModel @Inject constructor(
 
     private val _inputState = MutableStateFlow("")
 
-    val uiState: StateFlow<ChatUiState> = getChatUseCase()
-        .combine(_inputState) { chatList, currentInput ->
-            ChatUiState.Content(
-                messages = chatList,
-                input = currentInput
-            )
-        }
-        .stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5000),
-            initialValue = ChatUiState.Loading
+    val uiState: StateFlow<ChatUiState> = combine(
+        getChatUseCase(),
+        _inputState
+    ) { chatList, currentInput ->
+        ChatUiState.Content(
+            messages = chatList,
+            input = currentInput
         )
+    }
+    .stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5000),
+        initialValue = ChatUiState.Loading
+    )
 
     fun onAction(action: ChatAction) {
         when (action) {
