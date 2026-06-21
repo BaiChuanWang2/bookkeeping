@@ -7,4 +7,6 @@ interface ChatRepository {
     fun getChat(): Flow<List<Chat>>
 
     suspend fun saveChat(chat: Chat)
+
+    suspend fun sendChat(message: String): Chat
 }

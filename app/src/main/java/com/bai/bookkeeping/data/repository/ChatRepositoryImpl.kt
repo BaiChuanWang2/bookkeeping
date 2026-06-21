@@ -15,7 +15,6 @@ class ChatRepositoryImpl @Inject constructor(
     private val chatDao: ChatDao
 ) : ChatRepository {
 
-    // Room Data → Domain Model → UseCase
     override fun getChat(): Flow<List<Chat>> {
         return chatDao.getAllChat().map { entities ->
             entities.map { it.toDomain() }
@@ -23,13 +22,13 @@ class ChatRepositoryImpl @Inject constructor(
     }
 
     override suspend fun saveChat(chat: Chat) {
-        // save Room
-        chatDao.insertChat(chat.toEntity())
+        val entity = chat.toEntity()
+        chatDao.insertChat(entity)
+    }
 
-        // API
-//        chatApi.chat(
-//            userId = "0",
-//            message = chat.message
-//        )
+    override suspend fun sendChat(message: String): Chat {
+        val response = chatApi.chat(userId = "0", message = message)
+
+        return response.toDomain()
     }
 }

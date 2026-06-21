@@ -9,8 +9,6 @@ class SaveChatUseCase @Inject constructor(
 ) {
     suspend operator fun invoke(chat: Chat) {
 
-        if (chat.message.isNotBlank()) {
-            repository.saveChat(chat)
-        }
+        repository.saveChat(chat)
     }
 }

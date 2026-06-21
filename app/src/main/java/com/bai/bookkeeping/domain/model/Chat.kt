@@ -2,6 +2,9 @@ package com.bai.bookkeeping.domain.model
 
 data class Chat(
     val id: String,
-    val message: String,
-    val time: Long
+    val time: Long,
+    val description: String,
+    val amount: String,
+    val category: String,
+    val errorMessage: String
 )

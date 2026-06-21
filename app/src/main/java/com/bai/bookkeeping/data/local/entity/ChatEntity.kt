@@ -6,6 +6,9 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "chat")
 data class ChatEntity(
     @PrimaryKey val id: String,
-    val message: String,
-    val time: Long
+    val time: Long,
+    val description: String,
+    val amount: String,
+    val category: String,
+    val errorMessage: String
 )
