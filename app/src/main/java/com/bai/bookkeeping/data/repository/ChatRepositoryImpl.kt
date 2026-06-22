@@ -28,19 +28,26 @@ class ChatRepositoryImpl @Inject constructor(
     }
 
     override suspend fun sendChat(message: String): Chat {
-        val response = chatApi.chat(message = message)
 
-        when (response.code()) {
-            200 -> {
-                val body = response.body()
+        try {
+            val response = chatApi.chat(message = message)
 
-                return body!!.toDomain()
+            when (response.code()) {
+                200 -> {
+                    val body = response.body()
+
+                    return body!!.toDomain()
+                }
+                else -> {
+                    val errorMessage = response.errorBody()!!.string()
+
+                    return createErrorChat(errorMessage = errorMessage)
+                }
             }
-            else -> {
-                val errorMessage = response.errorBody()!!.string()
+        } catch (e: Exception) {
+            val errorMessage = "network error"
 
-                return createErrorChat(errorMessage = errorMessage)
-            }
+            return createErrorChat(errorMessage = errorMessage)
         }
     }
 }
