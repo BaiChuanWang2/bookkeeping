@@ -62,7 +62,7 @@ fun ChatScreen(
 
                 LazyColumn {
                     items(uiState.messages) {
-                        Text(it.toString())
+                        Text("description : ${it.description}, amount : ${it.amount}, category : ${it.category}")
                     }
                 }
             }
