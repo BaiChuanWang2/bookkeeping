@@ -6,5 +6,4 @@ data class Chat(
     val description: String,
     val amount: String,
     val category: String,
-    val errorMessage: String
 )

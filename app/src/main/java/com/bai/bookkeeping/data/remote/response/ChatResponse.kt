@@ -5,5 +5,4 @@ data class ChatResponse(
     val description: String?,
     val amount: String?,
     val category: String?,
-    val errorMessage: String?
 )

@@ -12,7 +12,6 @@ fun ChatEntity.toDomain(): Chat {
         description = this.description,
         amount = this.amount,
         category = this.category,
-        errorMessage = this.errorMessage
     )
 }
 
@@ -23,7 +22,6 @@ fun Chat.toEntity(): ChatEntity {
         description = this.description,
         amount = this.amount,
         category = this.category,
-        errorMessage = this.errorMessage
     )
 }
 
@@ -34,6 +32,5 @@ fun ChatResponse.toDomain(): Chat {
         description = this.description ?: "",
         amount = this.amount ?: "",
         category = this.category ?: "",
-        errorMessage = this.errorMessage ?: ""
     )
 }
