@@ -39,6 +39,9 @@ class ChatRepositoryImpl @Inject constructor(
 
                     return Result.Success(body!!.toDomain())
                 }
+                400 -> {
+                    return Result.Error(DomainError.BadRequest)
+                }
                 else -> {
                     return Result.Error(DomainError.Server)
                 }

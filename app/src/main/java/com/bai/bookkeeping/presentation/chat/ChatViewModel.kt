@@ -71,8 +71,9 @@ class ChatViewModel @Inject constructor(
 
                             is Result.Error -> {
                                 val errorMessage = when (result.error) {
-                                    is DomainError.Network -> "網路異常"
+                                    is DomainError.BadRequest -> "抱歉, 我只能幫您紀錄開銷"
                                     is DomainError.Server -> "伺服器忙碌中"
+                                    is DomainError.Network -> "網路異常"
                                 }
 
                                 _errorEvent.emit(errorMessage)
