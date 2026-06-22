@@ -11,12 +11,17 @@ fun MainScreen(
     uiState: MainUiState,
     onAction: (MainAction) -> Unit
 ) {
-    Button(
-        modifier = Modifier.statusBarsPadding(),
-        onClick = {
-            onAction(MainAction.OpenChat)
+    when (uiState) {
+
+        is MainUiState.Content -> {
+            Button(
+                modifier = Modifier.statusBarsPadding(),
+                onClick = {
+                    onAction(MainAction.OpenChat)
+                }
+            ) {
+                Text("Open Chat")
+            }
         }
-    ) {
-        Text("Open Chat")
     }
 }

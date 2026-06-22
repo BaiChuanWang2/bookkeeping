@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.asStateFlow
 @HiltViewModel
 class MainViewModel @Inject constructor() : ViewModel() {
     private val _uiState = MutableStateFlow<MainUiState>(
-        MainUiState.Loading
+        MainUiState.Content
     )
 
     val uiState: StateFlow<MainUiState> = _uiState.asStateFlow()
