@@ -1,10 +1,13 @@
 package com.bai.bookkeeping.presentation.main
 
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 
 @Composable
 fun MainScreen(
@@ -15,7 +18,10 @@ fun MainScreen(
 
         is MainUiState.Content -> {
             Button(
-                modifier = Modifier.statusBarsPadding(),
+                modifier = Modifier
+                    .statusBarsPadding()
+                    .padding(16.dp),
+                shape = RoundedCornerShape(6.dp),
                 onClick = {
                     onAction(MainAction.OpenChat)
                 }
