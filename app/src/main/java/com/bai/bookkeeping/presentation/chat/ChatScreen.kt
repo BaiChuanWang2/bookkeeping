@@ -7,7 +7,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
@@ -20,10 +19,6 @@ fun ChatScreen(
     onAction: (ChatAction) -> Unit
 ) {
     when (uiState) {
-
-        ChatUiState.Loading -> {
-            CircularProgressIndicator()
-        }
 
         is ChatUiState.Content -> {
             Column(
@@ -51,7 +46,8 @@ fun ChatScreen(
                 Button(
                     onClick = {
                         onAction(ChatAction.Send)
-                    }
+                    },
+                    enabled = !uiState.isSending
                 ) {
                     Text("Send")
                 }

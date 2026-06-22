@@ -7,7 +7,6 @@ import retrofit2.http.Query
 interface ChatApi {
     @GET("chat")
     suspend fun chat(
-        @Query("user_id") userId: String,
         @Query("message") message: String,
     ) : ChatResponse
 }

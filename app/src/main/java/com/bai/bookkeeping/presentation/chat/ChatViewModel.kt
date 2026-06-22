@@ -20,20 +20,23 @@ class ChatViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val _inputState = MutableStateFlow("")
+    private val _isSendingState = MutableStateFlow(false)
 
     val uiState: StateFlow<ChatUiState> = combine(
         getChatUseCase(),
-        _inputState
-    ) { chatList, currentInput ->
+        _inputState,
+        _isSendingState
+    ) { chatList, currentInput, isSending ->
         ChatUiState.Content(
             messages = chatList,
-            input = currentInput
+            input = currentInput,
+            isSending = isSending
         )
     }
     .stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5000),
-        initialValue = ChatUiState.Loading
+        initialValue = ChatUiState.Content()
     )
 
     fun onAction(action: ChatAction) {
@@ -44,11 +47,17 @@ class ChatViewModel @Inject constructor(
 
             ChatAction.Send -> {
                 val currentInput = _inputState.value
+
                 if (currentInput.isNotBlank()) {
                     viewModelScope.launch {
+
+                        _isSendingState.value = true
+
                         _inputState.value = ""
 
                         sendChatUseCase(currentInput)
+
+                        _isSendingState.value = false
                     }
                 }
             }

@@ -6,6 +6,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import jakarta.inject.Singleton
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -28,11 +29,25 @@ object ApiModule {
 
     @Provides
     @Singleton
-    fun provideOkHttpClient(logging: HttpLoggingInterceptor) = OkHttpClient.Builder()
+    fun provideAuthInterceptor(): Interceptor {
+        return Interceptor { chain ->
+            val request = chain.request()
+                .newBuilder()
+                .addHeader("X-APP-Key", "123456")
+                .build()
+
+            chain.proceed(request)
+        }
+    }
+
+    @Provides
+    @Singleton
+    fun provideOkHttpClient(logging: HttpLoggingInterceptor, authInterceptor: Interceptor) = OkHttpClient.Builder()
         .connectTimeout(TIMEOUT, TimeUnit.SECONDS)
         .readTimeout(TIMEOUT, TimeUnit.SECONDS)
         .writeTimeout(TIMEOUT, TimeUnit.SECONDS)
         .addInterceptor(logging)
+        .addInterceptor(authInterceptor)
         .build()
 
     @Provides

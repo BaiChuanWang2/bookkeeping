@@ -27,7 +27,7 @@ class ChatRepositoryImpl @Inject constructor(
     }
 
     override suspend fun sendChat(message: String): Chat {
-        val response = chatApi.chat(userId = "0", message = message)
+        val response = chatApi.chat(message = message)
 
         return response.toDomain()
     }
