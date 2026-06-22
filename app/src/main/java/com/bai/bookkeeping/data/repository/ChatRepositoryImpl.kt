@@ -1,15 +1,16 @@
 package com.bai.bookkeeping.data.repository
 
 import com.bai.bookkeeping.data.local.dao.ChatDao
-import com.bai.bookkeeping.data.mapper.createErrorChat
 import com.bai.bookkeeping.data.mapper.toDomain
 import com.bai.bookkeeping.data.mapper.toEntity
 import com.bai.bookkeeping.data.remote.api.ChatApi
+import com.bai.bookkeeping.domain.common.DomainError
 import com.bai.bookkeeping.domain.model.Chat
 import com.bai.bookkeeping.domain.repository.ChatRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
+import com.bai.bookkeeping.domain.common.Result
 
 class ChatRepositoryImpl @Inject constructor(
     private val chatApi: ChatApi,
@@ -27,7 +28,7 @@ class ChatRepositoryImpl @Inject constructor(
         chatDao.insertChat(entity)
     }
 
-    override suspend fun sendChat(message: String): Chat {
+    override suspend fun sendChat(message: String): Result<Chat> {
 
         try {
             val response = chatApi.chat(message = message)
@@ -36,18 +37,14 @@ class ChatRepositoryImpl @Inject constructor(
                 200 -> {
                     val body = response.body()
 
-                    return body!!.toDomain()
+                    return Result.Success(body!!.toDomain())
                 }
                 else -> {
-                    val errorMessage = response.errorBody()!!.string()
-
-                    return createErrorChat(errorMessage = errorMessage)
+                    return Result.Error(DomainError.Server)
                 }
             }
         } catch (e: Exception) {
-            val errorMessage = "network error"
-
-            return createErrorChat(errorMessage = errorMessage)
+            return Result.Error(DomainError.Network)
         }
     }
 }

@@ -37,14 +37,3 @@ fun ChatResponse.toDomain(): Chat {
         errorMessage = this.errorMessage ?: ""
     )
 }
-
-fun createErrorChat(errorMessage: String): Chat {
-    return Chat(
-        id = UUID.randomUUID().toString(),
-        time = System.currentTimeMillis(),
-        description = "",
-        amount = "",
-        category = "",
-        errorMessage = errorMessage
-    )
-}

@@ -2,6 +2,7 @@ package com.bai.bookkeeping.presentation.chat
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.bai.bookkeeping.domain.common.DomainError
 import com.bai.bookkeeping.domain.usecase.GetChatUseCase
 import com.bai.bookkeeping.domain.usecase.SendChatUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -12,6 +13,9 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import com.bai.bookkeeping.domain.common.Result
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
 
 @HiltViewModel
 class ChatViewModel @Inject constructor(
@@ -21,6 +25,9 @@ class ChatViewModel @Inject constructor(
 
     private val _inputState = MutableStateFlow("")
     private val _isSendingState = MutableStateFlow(false)
+
+    private val _errorEvent = MutableSharedFlow<String>()
+    val errorEvent = _errorEvent.asSharedFlow()
 
     val uiState: StateFlow<ChatUiState> = combine(
         getChatUseCase(),
@@ -41,6 +48,7 @@ class ChatViewModel @Inject constructor(
 
     fun onAction(action: ChatAction) {
         when (action) {
+
             is ChatAction.InputChanged -> {
                 _inputState.value = action.value
             }
@@ -53,9 +61,23 @@ class ChatViewModel @Inject constructor(
 
                         _isSendingState.value = true
 
-                        _inputState.value = ""
+                        val result = sendChatUseCase(currentInput)
 
-                        sendChatUseCase(currentInput)
+                        when (result) {
+
+                            is Result.Success -> {
+                                _inputState.value = ""
+                            }
+
+                            is Result.Error -> {
+                                val errorMessage = when (result.error) {
+                                    is DomainError.Network -> "網路異常"
+                                    is DomainError.Server -> "伺服器忙碌中"
+                                }
+
+                                _errorEvent.emit(errorMessage)
+                            }
+                        }
 
                         _isSendingState.value = false
                     }
