@@ -34,3 +34,7 @@ fun ChatResponse.toDomain(): Chat {
         category = this.category ?: "",
     )
 }
+
+fun List<ChatResponse>.toDomain(): List<Chat> {
+    return this.map { it.toDomain() }
+}

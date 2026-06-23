@@ -28,7 +28,7 @@ class ChatRepositoryImpl @Inject constructor(
         chatDao.insertChat(entity)
     }
 
-    override suspend fun sendChat(message: String): Result<Chat> {
+    override suspend fun sendChat(message: String): Result<List<Chat>> {
 
         try {
             val response = chatApi.chat(message = message)

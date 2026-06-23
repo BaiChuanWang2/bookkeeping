@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit
 @InstallIn(SingletonComponent::class)
 object ApiModule {
     private const val BASE_URL = "https://my-worker.qe519438-c07.workers.dev/"
-    private const val TIMEOUT: Long = 30
+    private const val TIMEOUT: Long = 60
 
     @Provides
     @Singleton

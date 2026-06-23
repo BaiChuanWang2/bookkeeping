@@ -9,5 +9,5 @@ interface ChatRepository {
 
     suspend fun saveChat(chat: Chat)
 
-    suspend fun sendChat(message: String): Result<Chat>
+    suspend fun sendChat(message: String): Result<List<Chat>>
 }

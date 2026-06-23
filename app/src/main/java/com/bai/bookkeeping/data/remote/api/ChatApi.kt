@@ -9,5 +9,5 @@ interface ChatApi {
     @GET("chat")
     suspend fun chat(
         @Query("message") message: String,
-    ) : Response<ChatResponse>
+    ) : Response<List<ChatResponse>>
 }

@@ -9,14 +9,16 @@ class SendChatUseCase @Inject constructor(
     private val repository: ChatRepository,
     private val saveChatUseCase: SaveChatUseCase
 ) {
-    suspend operator fun invoke(message: String): Result<Chat> {
+    suspend operator fun invoke(message: String): Result<List<Chat>> {
 
         val chat = repository.sendChat(message)
 
         when (chat) {
 
             is Result.Success -> {
-                saveChatUseCase(chat.data)
+                chat.data.forEach {
+                    saveChatUseCase(it)
+                }
             }
 
             is Result.Error -> {
