@@ -1,5 +1,6 @@
 package com.bai.bookkeeping.presentation.main
 
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -19,6 +20,7 @@ fun MainScreen(
         is MainUiState.Content -> {
             Button(
                 modifier = Modifier
+                    .fillMaxWidth()
                     .statusBarsPadding()
                     .padding(16.dp),
                 shape = RoundedCornerShape(6.dp),

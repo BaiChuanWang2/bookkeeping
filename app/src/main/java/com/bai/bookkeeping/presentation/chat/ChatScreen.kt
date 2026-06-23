@@ -86,6 +86,11 @@ fun ChatScreen(
                         ) {
 
                             Text(
+                                it.category,
+                                style = MaterialTheme.typography.bodyMedium
+                            )
+
+                            Text(
                                 it.description,
                                 style = MaterialTheme.typography.bodyMedium
                             )
