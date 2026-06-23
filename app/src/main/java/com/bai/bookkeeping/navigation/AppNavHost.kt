@@ -19,7 +19,7 @@ fun AppNavHost() {
 
             entry<Screen.Main> {
                 MainRoute(
-                    onOpenChat = {
+                    onChat = {
                         backStack.add(Screen.Chat)
                     }
                 )

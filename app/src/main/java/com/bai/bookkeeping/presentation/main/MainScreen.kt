@@ -23,10 +23,10 @@ fun MainScreen(
                     .padding(16.dp),
                 shape = RoundedCornerShape(6.dp),
                 onClick = {
-                    onAction(MainAction.OpenChat)
+                    onAction(MainAction.Chat)
                 }
             ) {
-                Text("Open Chat")
+                Text("Chat")
             }
         }
     }

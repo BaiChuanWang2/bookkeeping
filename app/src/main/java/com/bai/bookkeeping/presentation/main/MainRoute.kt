@@ -7,7 +7,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 
 @Composable
 fun MainRoute(
-    onOpenChat: () -> Unit,
+    onChat: () -> Unit,
     viewModel: MainViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -16,7 +16,7 @@ fun MainRoute(
         uiState = uiState,
         onAction = { action ->
             when (action) {
-                MainAction.OpenChat -> onOpenChat()
+                MainAction.Chat -> onChat()
             }
         }
     )
