@@ -28,6 +28,11 @@ class ChatRepositoryImpl @Inject constructor(
         chatDao.insertChat(entity)
     }
 
+    override suspend fun deleteChat(chat: Chat) {
+        val entity = chat.toEntity()
+        chatDao.deleteChat(entity)
+    }
+
     override suspend fun sendChat(message: String): Result<List<Chat>> {
 
         try {

@@ -14,12 +14,14 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import com.bai.bookkeeping.domain.common.Result
+import com.bai.bookkeeping.domain.usecase.DeleteChatUseCase
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 
 @HiltViewModel
 class ChatViewModel @Inject constructor(
     private val getChatUseCase: GetChatUseCase,
+    private val deleteChatUseCase: DeleteChatUseCase,
     private val sendChatUseCase: SendChatUseCase
 ) : ViewModel() {
 
@@ -82,6 +84,12 @@ class ChatViewModel @Inject constructor(
 
                         _isSendingState.value = false
                     }
+                }
+            }
+
+            is ChatAction.Delete -> {
+                viewModelScope.launch {
+                    deleteChatUseCase(action.chat)
                 }
             }
 

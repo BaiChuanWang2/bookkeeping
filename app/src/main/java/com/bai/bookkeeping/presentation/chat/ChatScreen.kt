@@ -13,6 +13,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Send
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -21,6 +22,7 @@ import androidx.compose.material3.MaterialTheme.colorScheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
@@ -82,23 +84,34 @@ fun ChatScreen(
                                 .fillMaxWidth()
                                 .background(colorScheme.surfaceVariant)
                                 .padding(12.dp),
-                            horizontalArrangement = Arrangement.SpaceBetween
+                            verticalAlignment = Alignment.CenterVertically
                         ) {
 
                             Text(
                                 it.category,
+                                modifier = Modifier.weight(1f),
                                 style = MaterialTheme.typography.bodyMedium
                             )
 
                             Text(
                                 it.description,
+                                modifier = Modifier.weight(1f),
                                 style = MaterialTheme.typography.bodyMedium
                             )
 
                             Text(
                                 it.amount,
+                                modifier = Modifier.weight(1f),
                                 style = MaterialTheme.typography.bodyMedium
                             )
+
+                            IconButton(
+                                onClick = {
+                                    onAction(ChatAction.Delete(it))
+                                },
+                            ) {
+                                Icon(Icons.Default.Delete, contentDescription = "delete")
+                            }
                         }
                     }
                 }
